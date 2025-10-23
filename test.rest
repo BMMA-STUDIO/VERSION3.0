@@ -1,0 +1,6 @@
+### TEST GET VIEW
+
+GET http://localhost:8383/
+
+### API Endpoint
+GET http://localhost:8383/api/data
