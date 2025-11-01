@@ -9,11 +9,27 @@
 <body>
     <%-include('partials/header.ejs')%>
     <h2><%-message%></h2>
+    
     <ul>
-        <% people.forEach((person) => { %>
-            <li ><%= person %></li>  
+        <% users.forEach((user) => { %>
+            <br>
+                <li ><%= user.name %></li>
+                <!--a href="profile">Profile</a--> 
+                <!--<a href="profile">Profile</a>-->
+                <form action="profile" method="POST" style="display:inline;">
+                    <input type="hidden" name="userName" value="<%= user.name %>">
+                    
+                    <button type="submit" style="background:none; border:none; color:blue; cursor:pointer; text-decoration:underline; padding:0;">
+                        Profile
+                    </button>
+                </form>
+            <br>
         <% }); %>
     </ul>
-    
+
+    <a href="feed"><h4>>> For You / Feed</h4></a>
+    <br><br>
+    <%-include('partials/footer.ejs')%>
+
 </body>
 </html>

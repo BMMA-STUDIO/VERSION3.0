@@ -8,10 +8,11 @@ const path = require('path')
 app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'));
 
-
-//Body Parser
+//Body parser
 app.use(express.json())
-app.use(express.urlencoded({extended:false}))
+app.use(express.urlencoded({ extended: true }));
+
+
 
 //Static Views
 app.use(express.static(path.join(__dirname, 'public')))

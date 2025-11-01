@@ -10,9 +10,12 @@
     </style>
 </head>
 <body>
+    <%-include('partials/header.ejs')%>
     <h1>404</h1>
     <h2>Oops! The page you are looking for doesn't exist.</h2>
     <p>We couldn't find the requested URL: <strong><%= path %></strong></p>
     <a href="/">Go to Homepage</a>
+    <%-include('partials/footer.ejs')%>
+
 </body>
 </html>
