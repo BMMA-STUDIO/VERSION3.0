@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title><%= title %></title>
+</head>
+<body>
+    <h1>Verify the Ride</h1>
+    
+    <form action="/users/search" method="POST">
+        <label for="personName">Enter Name:</label>
+        <input type="text" id="personName" name="personName" placeholder="e.g., Jack" required>
+        <button type="submit">Search List</button>
+    </form>
+
+    <hr>
+    
+    <% if (result) { %>
+        <h2>Search Result:</h2>
+        <p style="font-size: 1.2em;"><%= result %></p>
+    <% } %>
+
+    <p><a href="/">Home</a></p>
+</body>
+</html>
