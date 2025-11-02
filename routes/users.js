@@ -1,24 +1,37 @@
 const express = require('express')
 const router = express.Router()
-const users = require('../db/db')
+const { users, groups,userGroupConnections} = require('../db/db')
+const { describeConnections } = require('../db/dataUtils');
 router.use(logger)
+
 
 
 //-----USER PATH VERTICES-----//
 
 //Index & Invites
 router.get('/', (req, res)=>{
-    res.send('Users Index Page - Invite Members to your Group!')   
+    res.send('Users Index Page - Connect to your Group!')   
     res.status(200)
 })
+
 //SignUp Views (POST-Route in API section)
 router.get('/signup', (req, res)=>{
     res.render('signUp', {title: 'Sign Up Form'})   
     res.status(200)
 })
 
+router.get('/signUpSheMercedes', (req, res)=>{
+    res.render('signUpSheMerc', {title: 'She Mercedes Connect'})   
+    res.status(200)
+})
+
 router.get('/signUpAgents', (req, res)=>{
     res.render('signUpAgents', {title: 'Agents Form'})   
+    res.status(200)
+})
+
+router.get('/fundMyCommunity', (req, res)=>{
+    res.render('signUpCommunity', {title: 'Fund My Community'})   
     res.status(200)
 })
 
@@ -91,6 +104,9 @@ router.post('/', (req, res) => {
     const submittedEmail = req.body.contact ? req.body.contact.trim() : '';
     const submittedType = req.body.type ? req.body.type.trim().toLowerCase() : '';
     
+    // 🌟 NEW: Extract the ID of the group the user is attempting to join 🌟
+    const targetGroupId = parseInt(req.body.groupId);
+
     // 2. Define the ALLOW-LIST
     const allowedTypes = ['user', 'group', 'agent', 'cause'];
 
@@ -116,9 +132,35 @@ router.post('/', (req, res) => {
     // 6. Push the new user object into the 'users' array
     users.push(newUser);
 
+
+// 🌟 6B. CONNECTION LOGIC: Update userGroupConnections 🌟
+    let connectionMessage = '';
+    // A. Check if a valid group ID was submitted AND if that group exists
+    const groupExists = groups.some(g => g.id === targetGroupId);
+
+    if (targetGroupId && groupExists) {
+        // Create the new connection object
+        const newConnection = {
+            userId: newUser.id,
+            groupId: targetGroupId
+        };
+
+        // Add the connection to the relationship array
+        userGroupConnections.push(newConnection);
+        connectionMessage = `<p>✅ Successfully joined Group ${targetGroupId}.</p>`;
+        
+    } else if (finalType === 'group' && targetGroupId && !groupExists) {
+         // Optional: If the type is 'group' but the ID isn't found, you might 
+         // assume they are creating a new group and joining it, but for now:
+         connectionMessage = `<p>⚠️ New user created, but group ID ${targetGroupId} not found.</p>`;
+    }
+
+
     // 7. Console log the updated user object
     console.log('--- New User Input Received ---');
     console.log(newUser);
+    console.log('--- Current Connections Array Contents ---');
+    console.log(userGroupConnections.slice(-5)); // Log the last 5 connections for sanity check
     
     // 8. Send back an HTML response
     const responseHtml = `
@@ -140,9 +182,6 @@ router.post('/', (req, res) => {
     
     res.status(201).send(responseHtml);
 });
-
-
-
 
 
 //Searchx POST   
@@ -201,7 +240,14 @@ router.post('/search', (req, res) => {
     console.log('API Data view logged')
   });
 
- 
+//Connections Report - Using Data Utils
+router.get('/connections-report', (req, res) => {
+    // 3. Use the imported function with the imported data
+    const uxStatements = describeConnections(userGroupConnections, users, groups);
+    // Render the report or send as JSON
+    res.status(200).json({ report: uxStatements });
+});
+
 
 //Middleworx Logger
 function logger(req, res, next){
