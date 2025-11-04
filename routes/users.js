@@ -2,15 +2,16 @@ const express = require('express')
 const router = express.Router()
 const { users, groups,userGroupConnections} = require('../db/db')
 const { describeConnections } = require('../db/dataUtils');
+const { searchProfiles } = require('../controllers/searchController');
 router.use(logger)
 
 
 
 //-----USER PATH VERTICES-----//
 
-//Index & Invites
+//Index of Groupcards & Invites Links
 router.get('/', (req, res)=>{
-    res.send('Users Index Page - Connect to your Group!')   
+    res.render("UsersMainView")
     res.status(200)
 })
 
@@ -22,6 +23,11 @@ router.get('/signup', (req, res)=>{
 
 router.get('/signUpSheMercedes', (req, res)=>{
     res.render('signUpSheMerc', {title: 'She Mercedes Connect'})   
+    res.status(200)
+})
+
+router.get('/signUpAxel', (req, res)=>{
+    res.render('signUpAxel', {title: 'She Mercedes Connect'})   
     res.status(200)
 })
 
@@ -60,7 +66,7 @@ router.get('/search', (req, res) => {
 router.get('/profile', (req, res) => { 
     res.render('profile',{
         title:'User profile',
-        user: users[0] // Temporarily hardcoded to first user
+        user: users[0], // Temporarily hardcoded to first user
     })
 })
 
@@ -175,7 +181,7 @@ router.post('/', (req, res) => {
             
             <h3>Your group has (${users.length}) members:</h3>
             
-            <p><a href="./group">View Your Group</a></p>
+            <p><a href="./group">Continue to Group Feed</a></p>
         </body>
         </html>
     `;
@@ -201,9 +207,27 @@ router.post('/search', (req, res) => {
         );
 
         // Set the result message
-        if (foundUser) {
+        //if (foundUser) {
             // Display the person's name associated with the contact
-            searchResult = `Success! The contact '${contactToFind}' belongs to ${foundUser.name}.`;
+          //  searchResult = `${contactToFind}' is here ${foundUser.group}.`;
+        //} else {
+          //  searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
+        //}
+        
+        //NEW group filtered reply
+        if (foundUser) {
+            // 🌟 FIX: Use the Connection Array to find the group name 🌟
+            const userConnection = userGroupConnections.find(c => c.userId === foundUser.id);
+            let groupName = 'no assigned group';
+
+            if (userConnection) {
+                const group = groups.find(g => g.id === userConnection.groupId);
+                groupName = group ? group.name : 'Unknown Group';
+            }
+
+            // Construct the final result message
+            searchResult = `${foundUser.name} (Contact: '${contactToFind}') is a member of: ${groupName}.`;
+            
         } else {
             searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
         }
