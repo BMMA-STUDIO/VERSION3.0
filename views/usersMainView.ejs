@@ -4,13 +4,26 @@
     <meta charset="UTF-8">
     <title>Group Sign-Up Index</title>
     <style>
-        .group-card {
-            border: 1px solid #ccc; /* Border to define the card */
-            padding: 15px;
-            margin-bottom: 15px;
-            border-radius: 8px;
-            max-width: 400px;
+        /* 🌟 NEW: Container for the Grid/Flex Layout 🌟 */
+        .group-grid {
+            display: flex; /* Activate flex layout */
+            flex-wrap: wrap; /* Allow items to wrap to the next line if necessary */
+            justify-content: flex-start; /* Start items from the left */
+            gap: 15px; /* Adds space between the cards */
+            padding: 10px; /* Optional: padding around the entire grid */
         }
+        
+        .group-card {
+            border: 1px solid #ccc; 
+            padding: 15px;
+            margin-bottom: 0; /* Removed margin-bottom since gap handles spacing */
+            border-radius: 8px;
+            /* 🌟 CRITICAL CHANGE: Use flex-grow and flex-basis 🌟 */
+            flex-grow: 1; /* Allows card to grow and fill available horizontal space */
+            flex-basis: 280px; /* Suggests a minimum width before wrapping/growing */
+            max-width: 400px; /* Keeps the max width limit */
+        }
+        
         .group-card a {
             display: inline-block;
             margin-top: 10px;
@@ -19,33 +32,61 @@
     </style>
 </head>
 <body>
-    <h1>Open Groups</h1>
+    <h1>Explore</h1>
     
-    <div class="group-card">
-        <h3>SheMercedes</h3>
-        <p>Join this community group.</p>
-        
-        <a href="/users/signUpSheMercedes">
-            Sign Up Now
-        </a>
-    </div>
+    <div class="group-grid">
+        <div class="group-card">
+            <h3>SheMercedes</h3>
+            <p>Join this community group.</p>
+            
+            <a href="/users/signUpSheMercedes">
+                Sign Up Now
+            </a>
+        </div>
 
-    <div class="group-card">
-        <h3>Axel Owners</h3>
-        <p>Join this group.</p>
+        <div class="group-card">
+            <h3>Axel Owners</h3>
+            <p>Join this group.</p>
+            
+            <a href="/users/signUpAxel">
+                Sign Up Now
+            </a>
+        </div>
         
-        <a href="/users/signUpAxel">
-            Sign Up Now
-        </a>
+        <div class="group-card">
+            <h3>AllianceALM</h3>
+            <p>Join this group.</p>
+            
+            <a href="/users/signUp">
+                Sign Up Now
+            </a>
+        </div>
+        <div class="group-card">
+            <h3>F.o.K.R</h3>
+            <p>Join this group.</p>
+            
+            <a href="/users/signUp">
+                Sign Up Now
+            </a>
+        </div>  
+        <div class="group-card">
+            <h3>ORANGE</h3>
+            <p>Join this group.</p>
+            
+            <a href="/users/signUp">
+                Sign Up Now
+            </a>
+        </div>  
+        <div class="group-card">
+            <h3>CageZero</h3>
+            <p>Join this group.</p>
+            
+            <a href="/users/signUp">
+                Sign Up Now
+            </a>
+        </div>
     </div>
     
-    <div class="group-card">
-        <h3>AllianceALM</h3>
-        <p>Join this group.</p>
-        
-        <a href="/users/signUp">
-            Sign Up Now
-        </a>
-    </div>
+    <%-include('partials/footer.ejs')%>
 </body>
 </html>

@@ -3,6 +3,8 @@
 <html>
 <head><title>Agent Form</title></head>
 <body>
+    <a href="sorted">View Sorted Communities</a>
+    <br><br>
     <h1>Create Your Account</h1>
     <form action="./" method="POST">
         <label for="userName">Community Name:</label>
@@ -12,5 +14,8 @@
         <input type="hidden" name="type" value="cause">
         <button type="submit">Sign Me Up</button>
     </form>
+
+    <%-include('partials/footer.ejs')%>
+
 </body>
 </html>
