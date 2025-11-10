@@ -1,4 +1,104 @@
-ul {
+/*ul {
     list-style-type: none; 
     padding-left: 0; 
-    margin: 0;}
+    margin: 0;}-->*/
+    /* --- Global Setup: Robust Mobile Viewport Fix --- */
+:root {
+    /* ... (Variables remain the same) ... */
+    --font-family: 'Roboto', 'Open Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Arial, sans-serif;
+    --primary-blue: #1A73E8; 
+    --text-color: #202124; 
+    --bg-color: #FFFFFF; 
+    --light-gray-bg: #F8F9FA; 
+    --separator-color: #DADCE0;
+}
+
+html {
+    height: 100%;
+    /* 🌟 FIX 1: Prevent horizontal scroll by default 🌟 */
+    overflow-x: hidden; 
+}
+
+body {
+    /* 🌟 FIX 2: Ensure the body never exceeds the viewport width 🌟 */
+    width: 100vw; 
+    max-width: 100%; /* Safety measure */
+    
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh; 
+    
+    margin: 0;
+    padding: 0;
+    /* ... (Remaining body styles) ... */
+    color: var(--text-color);
+    font-family: var(--font-family);
+    line-height: 1.5;
+    -webkit-font-smoothing: antialiased;
+}
+
+/* --- Layout and Structure (Adjusted max-width for focus) --- */
+.main-content {
+    /* Maintain padding on the side */
+    padding: 0 5vw; /* Use vw for mobile-friendly proportional padding */
+    
+    /* Keep max-width for readability on large screens */
+    max-width: 600px; 
+    margin: 0 auto;
+    flex-grow: 1; 
+    width: 100%; 
+}
+
+/* --- Navigation & CTAs: Ensure no horizontal spill --- */
+.navigation {
+    padding: 20px 0;
+    margin-top: 20px;
+    border-top: 1px solid var(--separator-color);
+    /* 🌟 Ensure flex items wrap if links get too long on tiny screens 🌟 */
+    display: flex; 
+    flex-wrap: wrap; 
+}
+
+.navigation a {
+    /* Ensure spacing between links doesn't cause overflow */
+    margin-right: 10px;
+    margin-bottom: 10px; /* Space for wrapping */
+    /* ... (other styles remain) ... */
+    color: var(--primary-blue);
+    text-decoration: none;
+    font-weight: 500;
+    padding: 10px 16px;
+    border: 2px solid var(--primary-blue);
+    border-radius: 4px;
+    transition: all 0.2s ease-in-out;
+    text-transform: uppercase;
+    font-size: 0.9em;
+}
+
+/* --- Footer (No significant changes needed, as body width handles it) --- */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: auto; 
+    font-size: 0.85em;
+    color: #70757A;
+    background-color: var(--light-gray-bg);
+    width: 100%; 
+}
+
+/* ... (Remaining typography and media queries stay the same) ... */
+h1 {
+    font-family: 'Nunito', 'Quicksand', var(--font-family);
+    font-size: 2.5em; 
+    font-weight: 700; 
+    letter-spacing: -0.02em; 
+    margin-top: 40px; 
+    margin-bottom: 20px;
+    color: #10fc04;
+}
+/* ... (Other H3, P styles, etc. unchanged) ... */
+@media (min-width: 600px) {
+    h1 {
+        font-size: 3em; 
+    }
+}

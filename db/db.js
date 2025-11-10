@@ -19,6 +19,54 @@ const userGroupConnections = [
         { userId: 3, groupId: 103 }  
     ];
 
+//Ads Banners Array
+const bannerAds = [
+    {
+        name: "One",
+        price: 49.99, 
+        contact: "@bannerAdNameOne", // Corrected contact format
+        image: "https://example.com/images/ad_banner_one.jpg" 
+    },
+    {
+        name: "Two",
+        price: 75.00,
+        contact: "@bannerAdNameTwo", // Corrected contact format
+        image: "https://example.com/images/ad_banner_two.png"
+    }
+];
+
+//Agents Array
+const agents = [
+    {
+        name: "One",
+        contact: "@agentNameOne"
+    },
+    {
+        name: "Two",
+        contact: "@agentNameTwo"
+    },
+    {
+        name: "Three",
+        contact: "@agentNameThree" 
+    }
+];
+
+//Sorted Array
+const sorted = [
+    {
+        name: "Community One",
+        contact: "@communityOne" // Corrected contact format
+    },
+    {
+        name: "Community Two",
+        contact: "@communityTwo" // Corrected contact format
+    },
+    {
+        name: "Community Three",
+        contact: "@communityThree" // Corrected contact format
+    }
+];
+
 
 //module.exports = users;
-module.exports = { users, groups, userGroupConnections };
+module.exports = { users, groups, userGroupConnections, bannerAds, agents, sorted };

@@ -218,7 +218,7 @@ router.post('/search', (req, res) => {
         if (foundUser) {
             // 🌟 FIX: Use the Connection Array to find the group name 🌟
             const userConnection = userGroupConnections.find(c => c.userId === foundUser.id);
-            let groupName = 'no assigned group';
+            let groupName = 'no groups';
 
             if (userConnection) {
                 const group = groups.find(g => g.id === userConnection.groupId);
