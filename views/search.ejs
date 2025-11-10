@@ -2,24 +2,202 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <!-- Ensure proper scaling on mobile devices -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
     <title><%= title %></title>
+    
+    <!-- 1. External CSS for Global Theme (Gemini Colors, Fonts, Base Styles) -->
+    <link rel="stylesheet" href="/css/css-file.css"> 
+    
+    <!-- 2. Internal CSS for Page-Specific Layout (The Search Bar) -->
+    <style>
+        /* --- Mobile-First Base Layout (0px to 599px) --- */
+
+        /* Prevent all horizontal overflow */
+        html, body {
+            overflow-x: hidden; 
+            width: 100%;
+        }
+        
+        body {
+            /* Remove body padding, let the container handle spacing */
+            padding: 0; 
+            margin: 0;
+            
+            /* Inherited sticky footer setup */
+            font-family: var(--font-family); 
+            background-color: var(--bg-color); 
+            color: var(--text-color);
+        }
+
+        /* Outer wrapper for centering and overall max-width */
+        .search-container {
+            /* Full width on mobile, with responsive side padding (5vw) */
+            width: 100%; 
+            padding: 0 5vw; 
+            
+            /* Max width remains for desktop focus */
+            max-width: 650px; 
+            margin: 50px auto;
+            
+            box-sizing: border-box; /* Ensure padding is included in the width */
+        }
+
+        h1 {
+            font-family: sans-serif;
+            text-align: center;
+            margin-bottom: 30px;
+            color: rgb(6, 6, 6);
+        }
+  
+        /* --- GEMINI PROMPT BAR STYLES (Mobile View) --- */
+        form {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            gap: 10px; 
+            
+            /* High rounded corners */
+            border-radius: 32px; 
+            
+            /* Shadow and background */
+            background-color: var(--bg-color, white);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            
+            /* Internal padding for the elements */
+            padding: 8px 15px; /* Slightly tighter padding on mobile */
+            
+            /* Ensure the form takes up the full width allowed by its container */
+            width: 100%; 
+            box-sizing: border-box; 
+            
+            border: 1px solid transparent; 
+            transition: box-shadow 0.2s, border-color 0.2s;
+        }
+
+        form:focus-within {
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+            border-color: rgba(26, 115, 232, 0.3);
+        }
+        
+        label {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+        
+        input[type="text"] {
+            flex-grow: 1; 
+            flex-shrink: 1; /* Allows input to shrink if needed */
+            
+            padding: 8px 0; 
+            border: none; 
+            background: transparent;
+            font-size: 1em;
+            outline: none; 
+        }
+        
+       /* 🌟 Ensure the button uses a clear background for the flat look 🌟 */
+       button.simple-submit-btn {
+        flex-shrink: 0; /* Ensures button isn't squished */
+        
+        /* Appearance: Simple, flat, transparent background */
+        background-color: transparent; 
+        color: var(--primary-blue, #1A73E8); 
+        
+        /* Sizing and Shape */
+        width: 40px;
+        height: 40px;
+        padding: 0; 
+        border-radius: 50%; /* Circle shape */
+        border: none;
+        
+        /* Alignment and Icon Sizing */
+        font-size: 1.5em; /* Controls the size of the emoji/icon */
+        line-height: 40px; /* Center text vertically */
+        text-align: center;
+        
+        cursor: pointer;
+        transition: background-color 0.2s;
+    }
+    
+    button.simple-submit-btn:hover {
+        /* Subtle hover for interactivity */
+        background-color: rgba(26, 115, 232, 0.1); 
+    }
+    
+    /* Ensure the emoji is well-centered */
+    button.simple-submit-btn > span {
+        display: block;
+        transform: translateY(2px); /* Nudge the plane down slightly for visual centering */
+    }
+        /* --- Desktop Scaling (Tablet/Desktop: > 600px) --- */
+        @media (min-width: 600px) {
+            .search-container {
+                /* Tighter padding on larger screens */
+                padding: 0; 
+            }
+            
+            form {
+                /* Restore slightly larger padding on desktop */
+                padding: 10px 20px; 
+            }
+            
+            input[type="text"] {
+                font-size: 1.05em;
+            }
+        }
+
+        /* --- Result & Links Styles --- */
+
+        .result-message {
+            color: var(--text-color);
+            margin-top: 30px;
+            border-left: 4px solid var(--primary-blue, #1A73E8);
+            padding-left: 15px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            background-color: var(--light-gray-bg, #f8f9fa);
+            border-radius: 4px;
+        }
+        
+        a {
+            color: var(--primary-blue, #1A73E8);
+            text-decoration: none;
+            display: inline-block;
+            margin-top: 20px;
+            font-weight: 500;
+        }
+    </style>
 </head>
 <body>
-    <h1>Verify User</h1>
-    
-    <form action="/users/search" method="POST">
-        <label for="personName">Enter Name:</label>
-        <input type="text" id="personName" name="personName" placeholder="e.g., Jack" required>
-        <button type="submit">Search List</button>
-    </form>
+    <%-include('partials/header.ejs')%>
 
-    <hr>
-    
-    <% if (result) { %>
-        <h2>Search Result:</h2>
-        <p style="font-size: 1.2em;"><%= result %></p>
-    <% } %>
+    <div class="search-container">
+        <h1>search</h1>
+        
+        <form action="/users/search" method="POST">
+            <label for="personName">Enter Contact/Handle:</label>
+            <input type="text" id="personName" name="personName" placeholder="search verified @socials" required>
+            <button type="submit" class="simple-submit-btn">▶▶</button>
+        </form>
 
-    <p><a href="/">Home</a></p>
+        
+        <% if (result) { %>
+            <div class="result-message">
+                <h2>Search Result:</h2>
+                <p style="font-size: 1.2em;"><%= result %></p>
+            </div>
+        <% } %>
+        <div class="navigation">
+            <a href="/" class="cta-link">Home</a>
+        </div>
+    </div>
 </body>
 </html>

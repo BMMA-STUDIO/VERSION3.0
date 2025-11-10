@@ -1,8 +1,13 @@
 const express = require('express')
 const router = express.Router()
-const { users, groups,userGroupConnections} = require('../db/db')
+const { users, 
+    groups,
+    userGroupConnections,
+    agents,bannerAds,
+    sorted} = require('../db/db')
 const { describeConnections } = require('../db/dataUtils');
 const { searchProfiles } = require('../controllers/searchController');
+const { group } = require('console');
 router.use(logger)
 
 
@@ -27,7 +32,7 @@ router.get('/signUpSheMercedes', (req, res)=>{
 })
 
 router.get('/signUpAxel', (req, res)=>{
-    res.render('signUpAxel', {title: 'She Mercedes Connect'})   
+    res.render('signUpAxel', {title: 'Axel Owner Connect'})   
     res.status(200)
 })
 
@@ -38,6 +43,63 @@ router.get('/signUpAgents', (req, res)=>{
 
 router.get('/fundMyCommunity', (req, res)=>{
     res.render('signUpCommunity', {title: 'Fund My Community'})   
+    res.status(200)
+})
+
+//Tier Two Get Rootz -------------------------------------------
+//Ads
+router.get('/adBanners', (req, res)=>{
+    res.render('adBanners', {title: 'Ad Banners', bannerAds: bannerAds})   
+    res.status(200)
+})
+
+//Agents
+router.get('/agents', (req, res)=>{
+    res.render('agents', {title: 'Verified Agents', agents: agents})   
+    res.status(200)
+})
+
+router.post('/agents', (req, res) => {
+    const { name, contact } = req.body;
+  
+    if (!name || !contact) {
+      return res.status(400).send('Both name and contact are required.');
+    }
+  
+    agents.push({ name, contact });
+    console.log(`New agent added: ${name}, Contact: ${contact}`);
+    // Define success view inside a variable
+    const successView = `
+      <!DOCTYPE html>
+      <html lang="en">
+      <head>
+        <meta charset="UTF-8">
+        <title>Agent Added</title>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css">
+      </head>
+      <body >
+        <div >
+          <h2>
+            Agent "<strong>${name}</strong>" was successfully added!
+          </h2>
+          <p>
+            Current total agents: ${agents.length}
+          </p>
+          <a href="/users/agents">
+            View Updated Agents List
+          </a>
+        </div>
+      </body>
+      </html>
+    `;
+  
+    // Send the success view
+    res.send(successView);
+  });
+
+//Sorteds
+router.get('/sorted', (req, res)=>{
+    res.render('sorted', {title: 'Sorted', sorted: sorted})   
     res.status(200)
 })
 
@@ -140,7 +202,9 @@ router.post('/', (req, res) => {
 
 
 // 🌟 6B. CONNECTION LOGIC: Update userGroupConnections 🌟
-    let connectionMessage = '';
+    //let connectionMessage = '';
+    let connectionMessage = '<p>⚠️ New user created, but no group was specified or connection failed.</p>'
+
     // A. Check if a valid group ID was submitted AND if that group exists
     const groupExists = groups.some(g => g.id === targetGroupId);
 
@@ -179,9 +243,9 @@ router.post('/', (req, res) => {
             <strong>Email:</strong> ${submittedEmail}<br>
             <strong>Type:</strong> ${finalType}</p>
             
-            <h3>Your group has (${users.length}) members:</h3>
+            ${connectionMessage}<h3>Your group has (${users.length}) members:</h3>
             
-            <p><a href="./group">Continue to Group Feed</a></p>
+            <p><a href="./group">Continue to Group</a></p>
         </body>
         </html>
     `;
@@ -205,14 +269,6 @@ router.post('/search', (req, res) => {
             // 2. Use includes() for partial matches, which is useful for handles/emails
             user.contact.toLowerCase().includes(contactToFind.toLowerCase())
         );
-
-        // Set the result message
-        //if (foundUser) {
-            // Display the person's name associated with the contact
-          //  searchResult = `${contactToFind}' is here ${foundUser.group}.`;
-        //} else {
-          //  searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
-        //}
         
         //NEW group filtered reply
         if (foundUser) {
@@ -228,6 +284,8 @@ router.post('/search', (req, res) => {
             // Construct the final result message
             searchResult = `${foundUser.name} (Contact: '${contactToFind}') is a member of: ${groupName}.`;
             
+
+       
         } else {
             searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
         }
