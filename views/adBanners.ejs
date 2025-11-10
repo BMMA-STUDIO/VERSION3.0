@@ -1,0 +1,11 @@
+<h2 class="text-xl font-bold mb-4">Banner Ads List</h2>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+<% bannerAds.forEach(function(ad) { %>
+<div class="p-4 border rounded-lg shadow-md bg-white">
+<img src="<%= ad.image %>" alt="<%= ad.name %> Banner" class="w-full h-auto mb-2 rounded" onerror="this.src='https://www.google.com/search?q=https://placehold.co/150x50/9CA3AF/1F2937%3Ftext%3DImage%2BMissing';">
+<p><strong>Name:</strong> <%= ad.name %></p>
+<p><strong>Price:</strong> $<%= ad.price.toFixed(2) %></p>
+<p><strong>Contact:</strong> <%= ad.contact %></p>
+</div>
+<% }); %>
+</div>

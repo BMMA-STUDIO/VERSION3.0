@@ -1,0 +1,34 @@
+<%-include('partials/header.ejs')%>
+<br>
+<h2 class="text-xl font-bold mb-4">Agents List</h2>
+<ul class="space-y-2 list-disc list-inside">
+<% agents.forEach(function(agent) { %>
+<li class="p-2 border rounded-lg bg-indigo-50">
+<strong>Name:</strong> <%= agent.name %> |
+<strong>Contact:</strong> <%= agent.contact %>
+</li>
+<% }); %>
+</ul>
+
+ <!-- Add Agent Form -->
+  <hr>
+  Create New Agent Account
+ <form action="/users/agents" method="POST">
+    <div>
+      <label for="name" >Name:</label>
+      <input type="text" id="name" name="name" required>
+    </div>
+    <br>
+    <div class="mb-3">
+      <label for="contact" >Contact:</label>
+      <input type="text" id="contact" name="contact" required>
+    </div>
+<br>
+    <button type="submit"
+            class="bg-indigo-600 text-white px-4 py-2 rounded hover:bg-indigo-700">
+      Add Agent
+    </button>
+
+  </form>
+<hr>
+<%-include('partials/footer.ejs')%>

@@ -1,0 +1,9 @@
+<h2 class="text-xl font-bold mb-4">All Sorted</h2>
+<ul class="space-y-2 list-disc list-inside">
+<% sorted.forEach(function(member) { %>
+<li class="p-2 border rounded-lg bg-green-50">
+<strong>Name:</strong> <%= member.name %> |
+<strong>Contact:</strong> <%= member.contact %>
+</li>
+<% }); %>
+</ul>
