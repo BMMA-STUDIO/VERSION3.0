@@ -105,10 +105,17 @@ router.get('/sorted', (req, res)=>{
 
 //Group view
 router.get('/group', (req, res) => {
+    //remove duplicates
+    const uniqueUsers = users.filter((user, index, self) =>
+        index === self.findIndex(u =>
+            u.id === user.id ||
+            u.name.toLowerCase() === user.name.toLowerCase()
+        )
+    );
     res.render('group', {title: 'Group', 
-        message:'Hello Users',
+        message:'Group Members',
         //people: users.map(u => u.name)})
-        users: users}) //pass entire user objects
+        users: uniqueUsers}) //pass entire user objects
 })
 
 //Feed View
@@ -284,8 +291,6 @@ router.post('/search', (req, res) => {
             // Construct the final result message
             searchResult = `${foundUser.name} (Contact: '${contactToFind}') is a member of: ${groupName}.`;
             
-
-       
         } else {
             searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
         }

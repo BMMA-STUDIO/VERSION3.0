@@ -22,13 +22,19 @@ const userGroupConnections = [
 //Ads Banners Array
 const bannerAds = [
     {
-        name: "One",
+        name: "Ad Banner One",
         price: 49.99, 
         contact: "@bannerAdNameOne", // Corrected contact format
         image: "https://example.com/images/ad_banner_one.jpg" 
     },
     {
-        name: "Two",
+        name: "Ad Banner Two",
+        price: 75.00,
+        contact: "@bannerAdNameTwo", // Corrected contact format
+        image: "https://example.com/images/ad_banner_two.png"
+    },
+    {
+        name: "Ad Banner Three",
         price: 75.00,
         contact: "@bannerAdNameTwo", // Corrected contact format
         image: "https://example.com/images/ad_banner_two.png"
