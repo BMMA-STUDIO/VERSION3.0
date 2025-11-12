@@ -3,6 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>User Profile</title>
+
+<style>
+    .card-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;           /* horizontal layout */
+  flex-direction: row;     /* make it explicit */
+  gap: 12px;               /* space between cards */
+}
+
+.card-list li {
+  background: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  width: 100px;     /* narrower */
+  height: 150px;
+  text-align: center;
+  padding: 12px 16px;
+  min-width: 100px;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.card-list li:hover {
+  background: #f1f1f1;
+  transform: translateY(-2px);
+}
+
+.card-list a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  display: block;
+}
+</style>
 </head>
 <body>
     <%-include('partials/header.ejs')%>
@@ -12,8 +48,15 @@
     <a href="#">
         <p><%= user.name %></p>
     </a>
-
+    <p><strong>Policy Value: </strong>$2,500.00</p>
     <a href="group">Back to Group List</a>
+    <hr>
+    <ul class="card-list">
+        <li><a href="#">Ad001/12A</a></li>
+        <li><a href="#">Ad001/22B</a></li>
+        <li><a href="#">Ad001/28C</a></li>
+    </ul>
+    <hr>
     <br><br>
     <%-include('partials/footer.ejs')%>
 </body>
