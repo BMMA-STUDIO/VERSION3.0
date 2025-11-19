@@ -10,7 +10,9 @@ let users =[
 const groups = [
         { id: 101, name: 'SheMercedes', contactInfo: 'support@SheMercedes.org' },
         { id: 102, name: 'Axel', contactInfo: 'web: Axel.com/contact' },
-        { id: 103, name: 'EcoRide', contactInfo: 'admin@EcoRide.net' }
+        { id: 103, name: 'Eco+EV', contactInfo: 'admin@ecoev.net' },
+        { id: 104, name: 'CageFree', contactInfo: 'admin@cagefree.net' },
+
     ];
 
 const userGroupConnections = [
@@ -23,23 +25,24 @@ const userGroupConnections = [
 const bannerAds = [
     {
         name: "Ad Banner One",
-        price: 49.99, 
-        contact: "@bannerAdNameOne", // Corrected contact format
         image: "https://example.com/images/ad_banner_one.jpg" 
     },
     {
         name: "Ad Banner Two",
-        price: 75.00,
-        contact: "@bannerAdNameTwo", // Corrected contact format
         image: "https://example.com/images/ad_banner_two.png"
     },
     {
         name: "Ad Banner Three",
-        price: 75.00,
-        contact: "@bannerAdNameTwo", // Corrected contact format
         image: "https://example.com/images/ad_banner_two.png"
+    },
+    {
+        name: "Ad Banner Four",
+        image: "https://example.com/images/ad_banner_one.jpg" 
     }
 ];
+ 
+const adGroupConenctions = []
+
 
 //Agents Array
 const agents = [
@@ -73,6 +76,7 @@ const sorted = [
     }
 ];
 
+const sortedGroupConenctions = []
 
 //module.exports = users;
 module.exports = { users, groups, userGroupConnections, bannerAds, agents, sorted };
