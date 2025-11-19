@@ -16,7 +16,9 @@ router.use(logger)
 
 //Index of Groupcards & Invites Links
 router.get('/', (req, res)=>{
-    res.render("UsersMainView")
+    res.render("UsersMainView", {title:'Hello Groups',
+        groups
+    })
     res.status(200)
 })
 
@@ -36,6 +38,11 @@ router.get('/signUpAxel', (req, res)=>{
     res.status(200)
 })
 
+router.get('/signUpCageless', (req, res)=>{
+    res.render('signUpCageless', {title: 'TwoWheel Exclusives'})   
+    res.status(200)
+})
+
 router.get('/signUpAgents', (req, res)=>{
     res.render('signUpAgents', {title: 'Agents Form'})   
     res.status(200)
@@ -49,8 +56,7 @@ router.get('/fundMyCommunity', (req, res)=>{
 //Tier Two Get Rootz -------------------------------------------
 //Ads
 router.get('/adBanners', (req, res)=>{
-    res.render('adBanners', {title: 'Ad Banners', bannerAds: bannerAds})   
-    res.status(200)
+    res.render('adBanners', {title: 'Ad Banners', bannerAds: bannerAds});   
 })
 
 //Agents
@@ -114,13 +120,14 @@ router.get('/group', (req, res) => {
     );
     res.render('group', {title: 'Group', 
         message:'Group Members',
+        bannerAds: bannerAds,
         //people: users.map(u => u.name)})
         users: uniqueUsers}) //pass entire user objects
 })
 
 //Feed View
 router.get('/feed', (req, res) => {
-    res.render('feed', {title: 'For You'})
+    res.render('feed', {title: 'For You', bannerAds: bannerAds})
 })
 
 //Search Bar View
@@ -135,7 +142,8 @@ router.get('/search', (req, res) => {
 router.get('/profile', (req, res) => { 
     res.render('profile',{
         title:'User profile',
-        user: users[0], // Temporarily hardcoded to first user
+        user: users[0],
+        bannerAds: bannerAds // Temporarily hardcoded to first user
     })
 })
 
@@ -165,7 +173,8 @@ router.post('/profile', (req, res) => {
     res.render('profile', {
         title: 'User Profile Result',
         user: foundUser, // This will be the user object or null/undefined
-        lookupMessage: message // Pass a message for status/error feedback
+        lookupMessage: message, // Pass a message for status/error feedback
+        bannerAds: bannerAds
     });
 });
 
@@ -289,10 +298,10 @@ router.post('/search', (req, res) => {
             }
 
             // Construct the final result message
-            searchResult = `${foundUser.name} (Contact: '${contactToFind}') is a member of: ${groupName}.`;
+            searchResult = `${foundUser.name} ('${contactToFind}') is with ${groupName}`;
             
         } else {
-            searchResult = `Sorry, the contact '${contactToFind}' is NOT listed.`;
+            searchResult = `'${contactToFind}' is not listed.`;
         }
     }
 
