@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Group Sign-Up Index</title>
+    <title><%-title%></title>
     <style>
         /* 🌟 NEW: Container for the Grid/Flex Layout 🌟 */
         .group-grid {
@@ -35,58 +35,14 @@
     <h1>Explore</h1>
     
     <div class="group-grid">
-        <div class="group-card">
-            <h3>SheMercedes</h3>
-            <p>Join this community group.</p>
-            
-            <a href="/users/signUpSheMercedes">
-                Sign Up Now
-            </a>
-        </div>
-
-        <div class="group-card">
-            <h3>Axel Owners</h3>
-            <p>Join this group.</p>
-            
-            <a href="/users/signUpAxel">
-                Sign Up Now
-            </a>
-        </div>
-        
-        <div class="group-card">
-            <h3>AllianceALM</h3>
-            <p>Join this group.</p>
-            
-            <a href="/users/signUp">
-                Sign Up Now
-            </a>
-        </div>
-        <div class="group-card">
-            <h3>F.o.K.R</h3>
-            <p>Join this group.</p>
-            
-            <a href="/users/signUp">
-                Sign Up Now
-            </a>
-        </div>  
-        <div class="group-card">
-            <h3>ORANGE</h3>
-            <p>Join this group.</p>
-            
-            <a href="/users/signUp">
-                Sign Up Now
-            </a>
-        </div>  
-        <div class="group-card">
-            <h3>CageZero</h3>
-            <p>Join this group.</p>
-            
-            <a href="/users/signUp">
-                Sign Up Now
-            </a>
-        </div>
+        <% groups.forEach(function(groupcards) { %>
+            <div class="group-card">
+                <h3><%= groupcards.name %></h3>
+                <p><%= groupcards.description %></p>
+                <a href="<%= groupcards.signupLink %>">Sign Up Now</a>
+            </div>
+        <% }); %>
     </div>
-    
     <%-include('partials/footer.ejs')%>
 </body>
 </html>

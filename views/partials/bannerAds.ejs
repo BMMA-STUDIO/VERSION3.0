@@ -1,0 +1,9 @@
+<div style="display: flex; gap: 2rem;">
+    <% bannerAds.forEach(function(ad) { %>
+        <div>
+            <img src="<%= ad.image %>" alt="<%= ad.name %> Banner"  
+            onerror="this.src='https://www.google.com/search?q=https://placehold.co/150x50/9CA3AF/1F2937%3Ftext%3DImage%2BMissing';">
+             <p><%= ad.name %></p>
+        </div>
+    <% }); %>
+    </div>

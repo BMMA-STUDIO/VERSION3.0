@@ -5,6 +5,41 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/css/style.css"> 
     <title><%-title%></title>
+    <style>
+        .card-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;           /* horizontal layout */
+      flex-direction: row;     /* make it explicit */
+      gap: 12px;               /* space between cards */
+    }
+    
+    .card-list li {
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 10px;
+      width: 100px;     /* narrower */
+      height: 150px;
+      text-align: center;
+      padding: 12px 16px;
+      min-width: 100px;
+      text-align: center;
+      transition: all 0.2s ease;
+    }
+    
+    .card-list li:hover {
+      background: #f1f1f1;
+      transform: translateY(-2px);
+    }
+    
+    .card-list a {
+      text-decoration: none;
+      color: #333;
+      font-weight: 500;
+      display: block;
+    }
+    </style>
 </head>
 <body>
     <%-include('partials/header.ejs')%>
@@ -29,6 +64,8 @@
 
     <a href="feed"><h4>>> For You / Feed</h4></a>
     <br><br>
+
+    <%-include('partials/bannerAds.ejs')%>
     <%-include('partials/footer.ejs')%>
 
 </body>

@@ -48,14 +48,10 @@
     <a href="#">
         <p><%= user.name %></p>
     </a>
-    <p><strong>Policy Value: </strong>$2,500.00</p>
+    <p><strong>Policy Value: </strong>$2,500.00</p><p>View Quotations</p>
     <a href="group">Back to Group List</a>
     <hr>
-    <ul class="card-list">
-        <li><a href="#">Ad001/12A</a></li>
-        <li><a href="#">Ad001/22B</a></li>
-        <li><a href="#">Ad001/28C</a></li>
-    </ul>
+    <%-include('partials/bannerAds.ejs')%>
     <hr>
     <br><br>
     <%-include('partials/footer.ejs')%>
